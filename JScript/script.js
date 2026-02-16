@@ -1,22 +1,26 @@
-// Abrir e fechar descrição
+const campoBusca = document.getElementById("campoBusca");
 const artigos = document.querySelectorAll(".artigo");
 
-artigos.forEach(artigo => {
-    artigo.addEventListener("click", () => {
-        const descricao = artigo.querySelector(".descricao");
+// Abrir e fechar artigo ao clicar no título
+document.querySelectorAll(".titulo").forEach(titulo => {
+    titulo.addEventListener("click", () => {
+        const descricao = titulo.nextElementSibling;
         descricao.style.display =
             descricao.style.display === "block" ? "none" : "block";
     });
 });
 
-// Filtro de busca
-const campoBusca = document.getElementById("campoBusca");
-
-campoBusca.addEventListener("keyup", () => {
+// Filtro em tempo real
+campoBusca.addEventListener("input", () => {
     const filtro = campoBusca.value.toLowerCase();
 
     artigos.forEach(artigo => {
-        const titulo = artigo.querySelector(".titulo").textContent.toLowerCase();
-        artigo.style.display = titulo.includes(filtro) ? "block" : "none";
+        const textoCompleto = artigo.textContent.toLowerCase();
+
+        if (textoCompleto.includes(filtro)) {
+            artigo.style.display = "block";
+        } else {
+            artigo.style.display = "none";
+        }
     });
 });
